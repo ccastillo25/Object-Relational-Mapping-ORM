@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { includes, takeRight } = require('lodash');
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
@@ -8,16 +7,16 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
-  product.findAll({
+  Product.findAll({
     attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     include: [
       {
-        model: category,
-        attributes: ['category_names']
+        model: Category,
+        attributes: ['id', 'category_names']
       },
       {
-        model: tag,
-        attributes: ['tag_names']
+        model: Tag,
+        attributes: ['id', 'tag_names']
       },
     ]
   })
@@ -32,18 +31,18 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  product.findSingle({
+  Product.findOne({
     where: {
       id: req.params.id
     },
     attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     include: [
       {
-        model: category,
+        model: Category,
         attributes: ['category_names']
       },
       {
-        model: tag,
+        model: Tag,
         attributes: ['tag_names']
       }
     ]
@@ -137,7 +136,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
-  product.destdroy({
+  Product.destdroy({
     where: {
       id: req.params.id
     }

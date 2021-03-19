@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
       {
         model: Product,
         attributes: ['id', 'product_name', 'price', 'stock', 'catergory_id']
-      }
-    ]
+      },
+    ],
   })
     .then(dbCategoryData => {
       if (!dbCategoryData) {
@@ -39,8 +39,8 @@ router.get('/:id', (req, res) => {
       {
         model: Product,
         attributes: ['id', 'product_name', 'price', 'stock', 'catergory_id']
-      }
-    ]
+      },
+    ],
   })
     .then(dbCategoryData => {
       if (!dbCategoryData) {
@@ -74,12 +74,12 @@ router.put('/:id', (req, res) => {
       id: req.params.id
     }
   })
-    .then(dbCatData => {
-      if (!dbCatData) {
+    .then(dbCategoryData => {
+      if (!dbCategoryData) {
         res.status(404).json({message:'Catergory id not found'});
         return;
       }
-      res.json(dbCatData);
+      res.json(dbCategoryData);
     })
     .catch(err => {
       console.log(err);
@@ -99,7 +99,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({message: 'Category id not found'});
         return;
       }
-      res.json(dbCatData);
+      res.json(dbCategoryData);
     })
     .catch(err => {
       console.log(err);
